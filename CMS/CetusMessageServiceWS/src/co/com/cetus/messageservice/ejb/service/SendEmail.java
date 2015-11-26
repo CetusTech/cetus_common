@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://service.ejb.messageservice.cetus.com.co/}sendMailRequestDTO" minOccurs="0"/>
+ *         &lt;element name="SendMailRequestDTO" type="{http://service.ejb.messageservice.cetus.com.co/}sendMailRequestDTO" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class SendEmail {
 
-    @XmlElement(namespace = "http://service.ejb.messageservice.cetus.com.co/")
+    @XmlElement(name = "SendMailRequestDTO")
     protected SendMailRequestDTO sendMailRequestDTO;
 
     /**

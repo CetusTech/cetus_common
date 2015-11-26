@@ -39,43 +39,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UserWSDTO }
+     * Create an instance of {@link ResponseWSDTO }
      * 
      */
-    public UserWSDTO createUserWSDTO() {
-        return new UserWSDTO();
-    }
-
-    /**
-     * Create an instance of {@link SendEmailResponse }
-     * 
-     */
-    public SendEmailResponse createSendEmailResponse() {
-        return new SendEmailResponse();
-    }
-
-    /**
-     * Create an instance of {@link SendMailRequestDTO }
-     * 
-     */
-    public SendMailRequestDTO createSendMailRequestDTO() {
-        return new SendMailRequestDTO();
-    }
-
-    /**
-     * Create an instance of {@link ReloadParameter }
-     * 
-     */
-    public ReloadParameter createReloadParameter() {
-        return new ReloadParameter();
-    }
-
-    /**
-     * Create an instance of {@link SendEmail }
-     * 
-     */
-    public SendEmail createSendEmail() {
-        return new SendEmail();
+    public ResponseWSDTO createResponseWSDTO() {
+        return new ResponseWSDTO();
     }
 
     /**
@@ -87,11 +55,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ResponseWSDTO }
+     * Create an instance of {@link ReloadParameter }
      * 
      */
-    public ResponseWSDTO createResponseWSDTO() {
-        return new ResponseWSDTO();
+    public ReloadParameter createReloadParameter() {
+        return new ReloadParameter();
+    }
+
+    /**
+     * Create an instance of {@link SendMailRequestDTO }
+     * 
+     */
+    public SendMailRequestDTO createSendMailRequestDTO() {
+        return new SendMailRequestDTO();
+    }
+
+    /**
+     * Create an instance of {@link UserWSDTO }
+     * 
+     */
+    public UserWSDTO createUserWSDTO() {
+        return new UserWSDTO();
     }
 
     /**
@@ -100,6 +84,22 @@ public class ObjectFactory {
      */
     public ReloadParameterRequestDTO createReloadParameterRequestDTO() {
         return new ReloadParameterRequestDTO();
+    }
+
+    /**
+     * Create an instance of {@link SendEmailResponse }
+     * 
+     */
+    public SendEmailResponse createSendEmailResponse() {
+        return new SendEmailResponse();
+    }
+
+    /**
+     * Create an instance of {@link SendEmail }
+     * 
+     */
+    public SendEmail createSendEmail() {
+        return new SendEmail();
     }
 
     /**

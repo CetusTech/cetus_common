@@ -1,6 +1,8 @@
 
 package co.com.cetus.messageservice.ejb.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -17,8 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://service.ejb.messageservice.cetus.com.co/}userWSDTO">
  *       &lt;sequence>
- *         &lt;element name="recipients" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="copyToRecipients" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="recipients" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
+ *         &lt;element name="copyToRecipients" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="subject" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="senderEmail" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="senderName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -28,9 +30,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="attached1" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
  *         &lt;element name="attached2" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
  *         &lt;element name="attached3" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
- *         &lt;element name="nameFileAttached" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="nameFileAttached" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="nameTemplateHTML" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="parametersTemplateHTML" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="parametersTemplateHTML" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
@@ -63,8 +65,8 @@ public class SendMailRequestDTO
 {
 
     @XmlElement(required = true)
-    protected String recipients;
-    protected String copyToRecipients;
+    protected String[] recipients;
+    protected String[] copyToRecipients;
     @XmlElement(required = true)
     protected String subject;
     @XmlElement(required = true)
@@ -79,58 +81,12 @@ public class SendMailRequestDTO
     protected byte[] attached1;
     protected byte[] attached2;
     protected byte[] attached3;
-    protected String nameFileAttached;
+    protected String[] nameFileAttached;
     protected String nameTemplateHTML;
-    protected String parametersTemplateHTML;
+    protected String[] parametersTemplateHTML;
     protected String message;
 
-    /**
-     * Gets the value of the recipients property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRecipients() {
-        return recipients;
-    }
-
-    /**
-     * Sets the value of the recipients property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRecipients(String value) {
-        this.recipients = value;
-    }
-
-    /**
-     * Gets the value of the copyToRecipients property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCopyToRecipients() {
-        return copyToRecipients;
-    }
-
-    /**
-     * Sets the value of the copyToRecipients property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCopyToRecipients(String value) {
-        this.copyToRecipients = value;
-    }
+ 
 
     /**
      * Gets the value of the subject property.
@@ -295,7 +251,7 @@ public class SendMailRequestDTO
      *     byte[]
      */
     public void setAttached1(byte[] value) {
-        this.attached1 = value;
+        this.attached1 = ((byte[]) value);
     }
 
     /**
@@ -317,7 +273,7 @@ public class SendMailRequestDTO
      *     byte[]
      */
     public void setAttached2(byte[] value) {
-        this.attached2 = value;
+        this.attached2 = ((byte[]) value);
     }
 
     /**
@@ -339,32 +295,9 @@ public class SendMailRequestDTO
      *     byte[]
      */
     public void setAttached3(byte[] value) {
-        this.attached3 = value;
+        this.attached3 = ((byte[]) value);
     }
 
-    /**
-     * Gets the value of the nameFileAttached property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getNameFileAttached() {
-        return nameFileAttached;
-    }
-
-    /**
-     * Sets the value of the nameFileAttached property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setNameFileAttached(String value) {
-        this.nameFileAttached = value;
-    }
 
     /**
      * Gets the value of the nameTemplateHTML property.
@@ -391,30 +324,6 @@ public class SendMailRequestDTO
     }
 
     /**
-     * Gets the value of the parametersTemplateHTML property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getParametersTemplateHTML() {
-        return parametersTemplateHTML;
-    }
-
-    /**
-     * Sets the value of the parametersTemplateHTML property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setParametersTemplateHTML(String value) {
-        this.parametersTemplateHTML = value;
-    }
-
-    /**
      * Gets the value of the message property.
      * 
      * @return
@@ -438,4 +347,38 @@ public class SendMailRequestDTO
         this.message = value;
     }
 
+    public String[] getRecipients () {
+      return recipients;
+    }
+
+    public void setRecipients ( String[] recipients ) {
+      this.recipients = recipients;
+    }
+
+    public String[] getCopyToRecipients () {
+      return copyToRecipients;
+    }
+
+    public void setCopyToRecipients ( String[] copyToRecipients ) {
+      this.copyToRecipients = copyToRecipients;
+    }
+
+    public String[] getNameFileAttached () {
+      return nameFileAttached;
+    }
+
+    public void setNameFileAttached ( String[] nameFileAttached ) {
+      this.nameFileAttached = nameFileAttached;
+    }
+
+    public String[] getParametersTemplateHTML () {
+      return parametersTemplateHTML;
+    }
+
+    public void setParametersTemplateHTML ( String[] parametersTemplateHTML ) {
+      this.parametersTemplateHTML = parametersTemplateHTML;
+    }
+
+    
+    
 }

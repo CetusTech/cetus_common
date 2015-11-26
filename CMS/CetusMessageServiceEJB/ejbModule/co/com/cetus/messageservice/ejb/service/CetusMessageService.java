@@ -36,8 +36,8 @@ public class CetusMessageService {
    */
   @Interceptors ( ValidatePermissionInterceptor.class )
   @WebMethod
-  public @WebResult ( name = "responseWSDTO" ) ResponseWSDTO
-      reloadParameter ( @WebParam ( name = "reloadParameterRequestDTO" ) ReloadParameterRequestDTO reloadParameterDTO ) {
+  public @WebResult ( name = "ResponseWSDTO" ) ResponseWSDTO
+      reloadParameter ( @WebParam ( name = "ReloadParameterRequestDTO" ) ReloadParameterRequestDTO reloadParameterDTO ) {
     ResponseWSDTO responseWSDTO = null;
     try {
       responseWSDTO = cetusMessageProcess.reloadParameter( reloadParameterDTO );
@@ -58,8 +58,8 @@ public class CetusMessageService {
    */
   @Interceptors ( ValidatePermissionInterceptor.class )
   @WebMethod
-  public @WebResult ( name = "responseWSDTO" ) ResponseWSDTO
-      sendEmail ( @WebParam ( name = "sendMailRequestDTO" ) SendMailRequestDTO sendMailRequestDTO ) {
+  public @WebResult ( name = "ResponseWSDTO" ) ResponseWSDTO
+      sendEmail ( @WebParam ( name = "SendMailRequestDTO" ) SendMailRequestDTO sendMailRequestDTO ) {
     ResponseWSDTO responseWSDTO = null;
     try {
       responseWSDTO = cetusMessageProcess.sendEmail( sendMailRequestDTO );

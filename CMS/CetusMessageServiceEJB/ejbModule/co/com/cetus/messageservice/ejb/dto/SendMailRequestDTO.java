@@ -15,7 +15,7 @@ import co.com.cetus.common.dto.UserWSDTO;
  * @author Jose David Salcedo M. - Cetus Technology
  * @version CetusMessageServiceEJB (23/07/2015)
  */
-@XmlRootElement
+@XmlRootElement()
 @XmlAccessorType ( XmlAccessType.FIELD )
 public class SendMailRequestDTO extends UserWSDTO implements Serializable {
   private static final long serialVersionUID = 1L;
