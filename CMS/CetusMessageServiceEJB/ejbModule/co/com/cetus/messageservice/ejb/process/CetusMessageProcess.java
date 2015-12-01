@@ -100,6 +100,7 @@ public class CetusMessageProcess {
     String nameParameterMessage = null;
     try {
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "********** [INICIO] sendEmail **********" );
+      ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "sendMailRequestDTO :: " + sendMailRequestDTO.toString() );
       CetusMessageValidator.recipientsIsNullOrEmpty( sendMailRequestDTO.getRecipients() );
       CetusMessageValidator.subjectIsNullOrEmpty( sendMailRequestDTO.getSubject() );
       CetusMessageValidator.senderEmailIsNullOrEmpty( sendMailRequestDTO.getSenderEmail() );
@@ -113,16 +114,17 @@ public class CetusMessageProcess {
           message = valueParameter;
           if( sendMailRequestDTO.getParametersTemplateHTML() != null && sendMailRequestDTO.getParametersTemplateHTML().length > 0 ){
             for ( int i = 0; i < sendMailRequestDTO.getParametersTemplateHTML().length; i++ ) {
-              nameParameterMessage = "{"+ (i + 1) +"}";
-              message.replaceAll( nameParameterMessage, sendMailRequestDTO.getParametersTemplateHTML()[i] );
+              nameParameterMessage = "\\{"+ (i) +"}";
+              message = message.replaceAll( nameParameterMessage, sendMailRequestDTO.getParametersTemplateHTML()[i] );
             }
           }
         }else{
           message = new String("");
         }
+        CetusMessageValidator.messageIsNullOrEmpty( message );
+        sendMailRequestDTO.setMessage( message );
       } else {
         CetusMessageValidator.messageIsNullOrEmpty( sendMailRequestDTO.getMessage() );
-        message = sendMailRequestDTO.getMessage();
       }
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "Finaliza la validacion de parametros" );
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "Se procede a enviar el correo..." );

@@ -183,7 +183,7 @@ public class SendMail {
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Enviando Correo..." );
         Transport.send( message );
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Correo enviado" );
-        
+        result = true;
       } else {
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Correo " + sendMailRequestDTO.getSenderEmail() + " no valido" );
         result = false;

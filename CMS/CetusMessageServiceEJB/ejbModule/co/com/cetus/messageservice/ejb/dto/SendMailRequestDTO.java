@@ -1,6 +1,7 @@
 package co.com.cetus.messageservice.ejb.dto;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -187,5 +188,17 @@ public class SendMailRequestDTO extends UserWSDTO implements Serializable {
   public void setMessage ( String message ) {
     this.message = message;
   }
+
+  @Override
+  public String toString () {
+    return "SendMailRequestDTO [recipients=" + Arrays.toString( recipients ) + ", copyToRecipients=" + Arrays.toString( copyToRecipients )
+           + ", subject=" + subject + ", senderEmail=" + senderEmail + ", senderName=" + senderName + ", senderPassword=" + senderPassword
+           + ", serverSmtp=" + serverSmtp + ", serverPort=" + serverPort + ", attached1=" + Arrays.toString( attached1 ) + ", attached2="
+           + Arrays.toString( attached2 ) + ", attached3=" + Arrays.toString( attached3 ) + ", nameFileAttached="
+           + Arrays.toString( nameFileAttached ) + ", nameTemplateHTML=" + nameTemplateHTML + ", parametersTemplateHTML="
+           + Arrays.toString( parametersTemplateHTML ) + ", message=" + message + "]";
+  }
  
+  
+  
 }
