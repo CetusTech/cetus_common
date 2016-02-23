@@ -12,19 +12,19 @@ import javax.mail.internet.MimeMessage;
 public class SendMail extends Thread {
   
   private String   SMTP_HOST;
-  
+                   
   private String   SMTP_PORT;
-  
+                   
   private String   FROM_EMAIL;
-  
+                   
   private String   PASS;
-  
+                   
   private String   USER_NAME;
   private String   MSG_SUBJECT = null;
   private String   MSG_BODY    = null;
   private String[] TO_EMAIL    = null;
   private String[] CC_EMAIL    = null;
-  
+                               
   public SendMail ( String pFrom, String pSmtp, String pPort, String pUserName, String pPass, String pSubject, String pBody,
                     String[] pTo, String pCC[] ) {
     FROM_EMAIL = pFrom;
@@ -43,10 +43,10 @@ public class SendMail extends Thread {
   
   public static void main ( String[] args ) {
     String to[] = { "andres.herrera@tecnocom.biz" };
-    SendMail sendMail = new SendMail( "admin.cetus@cetustechnology.co", "smtp.gmail.com", "465", "admin.cetus@cetustechnology.co",
-                                      "$agarthi2015", "hola",
+    SendMail sendMail = new SendMail( "andresherra7@gmail.com", "smtp.gmail.com", "465", "andresherra7@gmail.com",
+                                      "$agarthi2016", "hola",
                                       "mundo", to, null );
-    
+                                      
     sendMail.start();
     
   }
@@ -63,12 +63,12 @@ public class SendMail extends Thread {
       props.put( "mail.smtp.port", SMTP_PORT );
       props.put( "mail.smtp.starttls.enable", "true" );
       props.put( "mail.smtp.ssl.trust", "*" );
+      props.setProperty( "mail.smtp.auth.mechanisms", "LOGIN NTLM" );
       props.put( "mail.smtp.socketFactory.port", SMTP_PORT );
-      props.put( "mail.smtp.socketFactory.class",
-                 "javax.net.ssl.SSLSocketFactory" );
-      //      props.put("mail.smtp.socketFactory.fallback", "false");
+      props.put( "mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory" );
+      props.put( "mail.smtp.socketFactory.fallback", "false" );
       // create some properties and get the default Session
-      Session session = Session.getInstance( props, auth );
+      Session session = Session.getDefaultInstance( props, auth );
       session.setDebug( debug );
       
       // create a message
@@ -98,7 +98,9 @@ public class SendMail extends Thread {
       System.out.println( "Enviando ..." );
       msg.setSubject( MSG_SUBJECT );
       msg.setContent( MSG_BODY, "text/html" );
-      Transport.send( msg );
+      Transport transport = session.getTransport( "smtps" );
+      transport.connect( SMTP_HOST, Integer.valueOf( SMTP_PORT ), USER_NAME, PASS );
+      transport.sendMessage( msg, msg.getAllRecipients() );
       System.out.println( "Mensaje enviado!" );
     } catch ( Exception e ) {
       e.printStackTrace();
