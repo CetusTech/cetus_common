@@ -62,7 +62,7 @@ public class SendMail {
         props.put( "mail.smtp.port", sendMailRequestDTO.getServerPort() );
         props.put( "mail.smtp.starttls.enable", "true" );
         props.put( "mail.smtp.auth", "true" );
-        props.put( "mail.smtp.socketFactory.pRort", sendMailRequestDTO.getServerPort() );
+        props.put( "mail.smtp.socketFactory.port", sendMailRequestDTO.getServerPort() );
         props.put( "mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory" );
         props.put( "mail.smtp.socketFactory.fallback", "false" );
         
