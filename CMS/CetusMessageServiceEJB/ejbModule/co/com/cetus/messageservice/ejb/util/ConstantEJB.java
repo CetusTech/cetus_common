@@ -43,6 +43,12 @@ public class ConstantEJB {
   
   public static String                    MESSAGE_IS_NULL_OR_EMPTY         = UtilEJB.getProperty( NAME_BUNDLE_NEGOCIO, "MESSAGE_IS_NULL_OR_EMPTY" );
   
+  public static String                    SMTP_HOST                          = "SMTP_HOST";
+  public static String                    SMPT_PORT                          = "SMPT_PORT";
+  public static String                    SMTP_FROM                          = "SMTP_FROM";
+  public static String                    SMTP_PASS                          = "SMTP_PASS";
+  public static String                    SMTP_USERNAME                      = "SMTP_USERNAME";
+  
   public static HashMap< String, String > parameter                        = null;
   
   /**

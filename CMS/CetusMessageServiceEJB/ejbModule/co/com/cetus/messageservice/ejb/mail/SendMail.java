@@ -20,6 +20,7 @@ import javax.mail.internet.MimeMultipart;
 import co.com.cetus.common.util.UtilCommon;
 import co.com.cetus.common.validation.EmailValidator;
 import co.com.cetus.messageservice.ejb.dto.SendMailRequestDTO;
+import co.com.cetus.messageservice.ejb.dto.ServerEmailDTO;
 import co.com.cetus.messageservice.ejb.util.ConstantEJB;
 
 /**
@@ -44,32 +45,33 @@ public class SendMail {
    *
    * @author Jose David Salcedo M. - Cetus Technology
    * @param sendMailRequestDTO the send mail request dto
+   * @param serverEmailDTO the server email dto
    * @return true, si el proceso fue exitoso
    * @since CetusMessageServiceEJB (25/07/2015)
    */
-  public static boolean send ( SendMailRequestDTO sendMailRequestDTO ) {
+  public static boolean send ( SendMailRequestDTO sendMailRequestDTO, ServerEmailDTO serverEmailDTO ) {
     boolean result = false;
     try {
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "Inicia el envio del correo" );
       
-      ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Validando el correo del remitente: " + sendMailRequestDTO.getSenderEmail() );
+      ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Validando el correo del remitente: " + serverEmailDTO.getSenderEmail() );
       
-      if ( EmailValidator.validate( sendMailRequestDTO.getSenderEmail() ) ) {
+      if ( EmailValidator.validate( serverEmailDTO.getSenderEmail() ) ) {
         
         Properties props = new Properties();
-        props.put( "mail.smtp.host", sendMailRequestDTO.getServerSmtp() );
-        props.put( "mail.smtp.user", sendMailRequestDTO.getSenderEmail() );
-        props.put( "mail.smtp.port", sendMailRequestDTO.getServerPort() );
+        props.put( "mail.smtp.host", serverEmailDTO.getServerSmtp() );
+        props.put( "mail.smtp.user", serverEmailDTO.getSenderEmail() );
+        props.put( "mail.smtp.port", serverEmailDTO.getServerPort() );
         props.put( "mail.smtp.starttls.enable", "true" );
         props.put( "mail.smtp.auth", "true" );
-        props.put( "mail.smtp.socketFactory.port", sendMailRequestDTO.getServerPort() );
+        props.put( "mail.smtp.socketFactory.port", serverEmailDTO.getServerPort() );
         props.put( "mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory" );
         props.put( "mail.smtp.socketFactory.fallback", "false" );
         
         System.setProperty( "mail.mime.charset", "iso-8859-1" );
         
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Procede a autenticar al usuario remitente" );
-        SMTPAuthentication auth = new SMTPAuthentication( sendMailRequestDTO.getSenderEmail(), sendMailRequestDTO.getSenderPassword() );
+        SMTPAuthentication auth = new SMTPAuthentication( serverEmailDTO.getSenderEmail(), serverEmailDTO.getSenderPassword() );
         
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Obtener la Sesion por defecto" );
         Session session = Session.getDefaultInstance( props, auth );
@@ -78,15 +80,15 @@ public class SendMail {
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Crear el objeto para el mensaje" );
         Message message = new MimeMessage( session );
         
-        ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Establecer el nombre [" + sendMailRequestDTO.getSenderName() + "] y correo del remitente ["
-                                                 + sendMailRequestDTO.getSenderEmail() + "]" );
-        if ( UtilCommon.stringNullOrEmpty( sendMailRequestDTO.getSenderName() ) ) {
-          message.setFrom( new InternetAddress( sendMailRequestDTO.getSenderEmail() ) );
+        ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Establecer el nombre [" + serverEmailDTO.getSenderName() + "] y correo del remitente ["
+                                                 + serverEmailDTO.getSenderEmail() + "]" );
+        if ( UtilCommon.stringNullOrEmpty( serverEmailDTO.getSenderName() ) ) {
+          message.setFrom( new InternetAddress( serverEmailDTO.getSenderEmail() ) );
         } else {
-          message.setFrom( new InternetAddress( sendMailRequestDTO.getSenderEmail(), sendMailRequestDTO.getSenderName() ) );
+          message.setFrom( new InternetAddress( serverEmailDTO.getSenderEmail(), serverEmailDTO.getSenderName() ) );
         }
         
-        if ( sendMailRequestDTO.getRecipients() != null ) {
+        if ( sendMailRequestDTO.getRecipients() != null && sendMailRequestDTO.getRecipients().length > 0 ) {
           String[] recipients = sendMailRequestDTO.getRecipients();
           InternetAddress[] addressTo = new InternetAddress[recipients.length];
           for ( int i = 0; i < recipients.length; i++ ) {
@@ -96,7 +98,7 @@ public class SendMail {
           message.setRecipients( Message.RecipientType.TO, addressTo );
         }
         
-        if ( sendMailRequestDTO.getCopyToRecipients() != null ) {
+        if ( sendMailRequestDTO.getCopyToRecipients() != null && sendMailRequestDTO.getCopyToRecipients().length > 0 ) {
           ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Establecer los destinatarios copiados" );
           String[] copyToRecipients = sendMailRequestDTO.getCopyToRecipients();
           InternetAddress[] addressCopyToRecipients = new InternetAddress[copyToRecipients.length];
@@ -107,14 +109,15 @@ public class SendMail {
           message.setRecipients( Message.RecipientType.CC, addressCopyToRecipients );
         }
         
-        ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Establecer asunto ["+ sendMailRequestDTO.getSubject() +"] del mensaje" );
+        ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Establecer asunto [" + sendMailRequestDTO.getSubject() + "] del mensaje" );
         message.setSubject( sendMailRequestDTO.getSubject() );
         
-        ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Establecer mensaje ["+ sendMailRequestDTO.getMessage() +"]" );
+        ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Establecer mensaje [" + sendMailRequestDTO.getMessage() + "]" );
         message.setContent( sendMailRequestDTO.getMessage(), "text/html" );
         
-        
-        if ( sendMailRequestDTO.getAttached1() != null || sendMailRequestDTO.getAttached2() != null || sendMailRequestDTO.getAttached3() != null ) {
+        if ( ( sendMailRequestDTO.getAttached1() != null && sendMailRequestDTO.getAttached1().length > 0 )
+             || ( sendMailRequestDTO.getAttached2() != null && sendMailRequestDTO.getAttached2().length > 0 )
+             || ( sendMailRequestDTO.getAttached3() != null && sendMailRequestDTO.getAttached3().length > 0 ) ) {
           BodyPart bpContent = new MimeBodyPart();
           Multipart multipart = new MimeMultipart();
           if ( sendMailRequestDTO.getAttached1() != null ) {
@@ -185,7 +188,7 @@ public class SendMail {
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Correo enviado" );
         result = true;
       } else {
-        ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Correo " + sendMailRequestDTO.getSenderEmail() + " no valido" );
+        ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Correo " + serverEmailDTO.getSenderEmail() + " no valido" );
         result = false;
       }
       
@@ -195,4 +198,5 @@ public class SendMail {
     ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "Finaliza el envio del correo con resultado: " + result );
     return result;
   }
+  
 }

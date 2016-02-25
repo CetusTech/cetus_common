@@ -15,6 +15,7 @@ import co.com.cetus.common.dto.ResponseWSDTO;
 import co.com.cetus.common.exception.ValidatorException;
 import co.com.cetus.common.util.UtilCommon;
 import co.com.cetus.messageservice.ejb.dto.SendMailRequestDTO;
+import co.com.cetus.messageservice.ejb.dto.ServerEmailDTO;
 import co.com.cetus.messageservice.ejb.mail.SendMail;
 import co.com.cetus.messageservice.ejb.util.ConstantEJB;
 import co.com.cetus.messageservice.ejb.validator.CetusMessageValidator;
@@ -52,7 +53,7 @@ public class CetusMessageProcess {
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "********* Inicia recarga el componente [" + reloadParameterDTO.getComponent() + "] *********" );
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "Component =" + reloadParameterDTO.getComponent() + ", ListParameter ="
                                               + reloadParameterDTO.getListParameter() );
-      
+                                              
       CetusMessageValidator.componentIsNullOrEmpty( reloadParameterDTO.getComponent() );
       CetusMessageValidator.listParameterIsNullOrEmpty( reloadParameterDTO.getListParameter() );
       
@@ -103,35 +104,40 @@ public class CetusMessageProcess {
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "sendMailRequestDTO :: " + sendMailRequestDTO.toString() );
       CetusMessageValidator.recipientsIsNullOrEmpty( sendMailRequestDTO.getRecipients() );
       CetusMessageValidator.subjectIsNullOrEmpty( sendMailRequestDTO.getSubject() );
-      CetusMessageValidator.senderEmailIsNullOrEmpty( sendMailRequestDTO.getSenderEmail() );
-      CetusMessageValidator.senderPasswordIsNullOrEmpty( sendMailRequestDTO.getSenderPassword() );
-      CetusMessageValidator.serverSmtpIsNullOrEmpty( sendMailRequestDTO.getServerSmtp() );
-      CetusMessageValidator.serverPortIsNullOrEmpty( sendMailRequestDTO.getServerPort() );
       
       if ( sendMailRequestDTO.getNameTemplateHTML() != null && !sendMailRequestDTO.getNameTemplateHTML().isEmpty() ) {
         valueParameter = cetusMParameterProcess.getValueParameter( sendMailRequestDTO.getNameTemplateHTML() );
-        if( valueParameter != null ){
+        if ( valueParameter != null ) {
           message = valueParameter;
-          if( sendMailRequestDTO.getParametersTemplateHTML() != null && sendMailRequestDTO.getParametersTemplateHTML().length > 0 ){
+          if ( sendMailRequestDTO.getParametersTemplateHTML() != null && sendMailRequestDTO.getParametersTemplateHTML().length > 0 ) {
             for ( int i = 0; i < sendMailRequestDTO.getParametersTemplateHTML().length; i++ ) {
-              nameParameterMessage = "\\{"+ (i) +"}";
+              nameParameterMessage = "\\{" + ( i ) + "}";
               message = message.replaceAll( nameParameterMessage, sendMailRequestDTO.getParametersTemplateHTML()[i] );
             }
           }
-        }else{
-          message = new String("");
+        } else {
+          message = new String( "" );
         }
         CetusMessageValidator.messageIsNullOrEmpty( message );
         sendMailRequestDTO.setMessage( message );
       } else {
         CetusMessageValidator.messageIsNullOrEmpty( sendMailRequestDTO.getMessage() );
       }
+      
+      ServerEmailDTO serverEmailDTO = new ServerEmailDTO();
+      
+      serverEmailDTO.setServerSmtp( cetusMParameterProcess.getValueParameter( ConstantEJB.SMTP_HOST ) );
+      serverEmailDTO.setServerPort( cetusMParameterProcess.getValueParameter( ConstantEJB.SMPT_PORT ) );
+      serverEmailDTO.setSenderEmail( cetusMParameterProcess.getValueParameter( ConstantEJB.SMTP_FROM ) );
+      serverEmailDTO.setSenderPassword( cetusMParameterProcess.getValueParameter( ConstantEJB.SMTP_PASS ) );
+      serverEmailDTO.setSenderName( cetusMParameterProcess.getValueParameter( ConstantEJB.SMTP_USERNAME ) );
+      
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "Finaliza la validacion de parametros" );
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "Se procede a enviar el correo..." );
-      if( SendMail.send( sendMailRequestDTO ) ){
+      if ( SendMail.send( sendMailRequestDTO, serverEmailDTO ) ) {
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "Correo enviado exitosamente" );
         responseWSDTO = UtilCommon.createMessageSUCCESS_WS();
-      }else{
+      } else {
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.error( "Error enviando el correo" );
         responseWSDTO = UtilCommon.createMessageFAILURE_WS();
       }

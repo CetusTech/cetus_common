@@ -20,11 +20,6 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="recipients" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
  *         &lt;element name="copyToRecipients" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="subject" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="senderEmail" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="senderName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="senderPassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="serverSmtp" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="serverPort" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="attached1" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
  *         &lt;element name="attached2" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
  *         &lt;element name="attached3" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
@@ -45,11 +40,6 @@ import javax.xml.bind.annotation.XmlType;
     "recipients",
     "copyToRecipients",
     "subject",
-    "senderEmail",
-    "senderName",
-    "senderPassword",
-    "serverSmtp",
-    "serverPort",
     "attached1",
     "attached2",
     "attached3",
@@ -67,9 +57,6 @@ public class SendMailRequestDTO
     protected String[] copyToRecipients;
     @XmlElement(required = true)
     protected String subject;
-    @XmlElement(required = true)
-    protected String senderEmail;
-    protected String senderName;
     @XmlElement(required = true)
     protected String senderPassword;
     @XmlElement(required = true)
@@ -108,54 +95,6 @@ public class SendMailRequestDTO
      */
     public void setSubject(String value) {
         this.subject = value;
-    }
-
-    /**
-     * Gets the value of the senderEmail property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSenderEmail() {
-        return senderEmail;
-    }
-
-    /**
-     * Sets the value of the senderEmail property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSenderEmail(String value) {
-        this.senderEmail = value;
-    }
-
-    /**
-     * Gets the value of the senderName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSenderName() {
-        return senderName;
-    }
-
-    /**
-     * Sets the value of the senderName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSenderName(String value) {
-        this.senderName = value;
     }
 
     /**

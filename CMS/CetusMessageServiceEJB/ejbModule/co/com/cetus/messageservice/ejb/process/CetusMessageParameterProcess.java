@@ -1,8 +1,5 @@
 package co.com.cetus.messageservice.ejb.process;
 
-import static co.com.cetus.common.util.UtilCommon.createMessageFAILURE;
-import static co.com.cetus.common.util.UtilCommon.createMessageSUCCESS;
-
 import java.util.ArrayList;
 import java.util.List;
 

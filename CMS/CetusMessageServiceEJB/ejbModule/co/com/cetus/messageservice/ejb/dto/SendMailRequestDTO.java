@@ -16,56 +16,41 @@ import co.com.cetus.common.dto.UserWSDTO;
  * @author Jose David Salcedo M. - Cetus Technology
  * @version CetusMessageServiceEJB (23/07/2015)
  */
-@XmlRootElement()
+@XmlRootElement ( )
 @XmlAccessorType ( XmlAccessType.FIELD )
 public class SendMailRequestDTO extends UserWSDTO implements Serializable {
   private static final long serialVersionUID = 1L;
-  
+                                             
   @XmlElement ( required = true )
   private String            recipients[];
-  
+                            
   @XmlElement ( required = false )
   private String            copyToRecipients[];
-  
+                            
   @XmlElement ( required = true )
   private String            subject;
-  
-  @XmlElement ( required = true )
-  private String            senderEmail;
-  
-  @XmlElement ( required = false )
-  private String            senderName;
-  
-  @XmlElement ( required = true )
-  private String            senderPassword;
-  
-  @XmlElement ( required = true )
-  private String            serverSmtp;
-  
-  @XmlElement ( required = true )
-  private String            serverPort;
-  
+                            
   @XmlElement ( required = false )
   private byte[]            attached1;
-  
+                            
   @XmlElement ( required = false )
   private byte[]            attached2;
-  
+                            
   @XmlElement ( required = false )
   private byte[]            attached3;
-  
+                            
   @XmlElement ( required = false )
   private String            nameFileAttached[];
-  
+                            
   @XmlElement ( required = false )
   private String            nameTemplateHTML;
-  
+                            
   @XmlElement ( required = false )
   private String            parametersTemplateHTML[];
-  
+                            
   @XmlElement ( required = false )
   private String            message;
-  
+                            
   public SendMailRequestDTO () {
   }
   
@@ -91,46 +76,6 @@ public class SendMailRequestDTO extends UserWSDTO implements Serializable {
   
   public void setSubject ( String subject ) {
     this.subject = subject;
-  }
-  
-  public String getSenderEmail () {
-    return senderEmail;
-  }
-  
-  public void setSenderEmail ( String senderEmail ) {
-    this.senderEmail = senderEmail;
-  }
-  
-  public String getSenderName () {
-    return senderName;
-  }
-  
-  public void setSenderName ( String senderName ) {
-    this.senderName = senderName;
-  }
-  
-  public String getSenderPassword () {
-    return senderPassword;
-  }
-  
-  public void setSenderPassword ( String senderPassword ) {
-    this.senderPassword = senderPassword;
-  }
-  
-  public String getServerSmtp () {
-    return serverSmtp;
-  }
-  
-  public void setServerSmtp ( String serverSmtp ) {
-    this.serverSmtp = serverSmtp;
-  }
-  
-  public String getServerPort () {
-    return serverPort;
-  }
-  
-  public void setServerPort ( String serverPort ) {
-    this.serverPort = serverPort;
   }
   
   public byte[] getAttached1 () {
@@ -188,17 +133,14 @@ public class SendMailRequestDTO extends UserWSDTO implements Serializable {
   public void setMessage ( String message ) {
     this.message = message;
   }
-
+  
   @Override
   public String toString () {
     return "SendMailRequestDTO [recipients=" + Arrays.toString( recipients ) + ", copyToRecipients=" + Arrays.toString( copyToRecipients )
-           + ", subject=" + subject + ", senderEmail=" + senderEmail + ", senderName=" + senderName + ", senderPassword=" + senderPassword
-           + ", serverSmtp=" + serverSmtp + ", serverPort=" + serverPort + ", attached1=" + Arrays.toString( attached1 ) + ", attached2="
+           + ", subject=" + subject + ", attached1=" + Arrays.toString( attached1 ) + ", attached2="
            + Arrays.toString( attached2 ) + ", attached3=" + Arrays.toString( attached3 ) + ", nameFileAttached="
            + Arrays.toString( nameFileAttached ) + ", nameTemplateHTML=" + nameTemplateHTML + ", parametersTemplateHTML="
            + Arrays.toString( parametersTemplateHTML ) + ", message=" + message + "]";
   }
- 
-  
   
 }
