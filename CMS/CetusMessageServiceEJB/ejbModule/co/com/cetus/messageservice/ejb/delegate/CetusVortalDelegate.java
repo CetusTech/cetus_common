@@ -33,7 +33,7 @@ public class CetusVortalDelegate {
   private void init () {
     try {
       customerService = new CustomerServiceFacade( new URL( ConstantEJB.WSDL_CETUS_CUSTOMER_SERVICE ) );
-      ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "####### CustomerService Instanciado Correctamente" );
+//      ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "####### CustomerService Instanciado Correctamente" );
     } catch ( MalformedURLException e ) {
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.error( e.getMessage(), e );
     }

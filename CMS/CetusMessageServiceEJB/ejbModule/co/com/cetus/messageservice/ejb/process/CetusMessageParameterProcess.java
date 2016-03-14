@@ -87,8 +87,13 @@ public class CetusMessageParameterProcess {
       findParameterRequestDTO.setIdApplication( ConstantEJB.ID_APPLICATION_CETUS );
       findParameterRequestDTO.setNameComponent( ConstantEJB.CETUS_MESSAGE_EJB_COMPONENT );
       
+      ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "findParameterRequestDTO :: " + findParameterRequestDTO.toString() );
+      
       findResponseDTO = cetusVortalDelegate.findParameter( findParameterRequestDTO );
       responseWSDTO = findResponseDTO.getResponseWSDTO();
+      
+      ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "responseWSDTO :: " + responseWSDTO.toString() );
+      
       if ( responseWSDTO != null && responseWSDTO.getCode().equals( ConstantCommon.WSResponse.CODE_ONE ) ) {
         list = findResponseDTO.getParameters();
         for ( co.com.cetus.portal.ejb.service.ParameterDTO parameter: list ) {

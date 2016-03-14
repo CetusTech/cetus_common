@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
  * <p>Clase Java para findParameterRequestDTO complex type.
  * 
@@ -26,56 +25,61 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "findParameterRequestDTO", propOrder = {
-    "nameComponent",
-    "idApplication"
-})
+@XmlAccessorType ( XmlAccessType.FIELD )
+@XmlType ( name = "findParameterRequestDTO", propOrder = {
+                                                           "nameComponent",
+                                                           "idApplication"
+} )
 public class FindParameterRequestDTO
-    extends UserWSDTO
-{
-
-    protected String nameComponent;
-    protected int idApplication;
-
-    /**
-     * Obtiene el valor de la propiedad nameComponent.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getNameComponent() {
-        return nameComponent;
-    }
-
-    /**
-     * Define el valor de la propiedad nameComponent.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setNameComponent(String value) {
-        this.nameComponent = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad idApplication.
-     * 
-     */
-    public int getIdApplication() {
-        return idApplication;
-    }
-
-    /**
-     * Define el valor de la propiedad idApplication.
-     * 
-     */
-    public void setIdApplication(int value) {
-        this.idApplication = value;
-    }
-
+                                     extends UserWSDTO {
+                                     
+  protected String nameComponent;
+  protected int    idApplication;
+                   
+  /**
+   * Obtiene el valor de la propiedad nameComponent.
+   * 
+   * @return
+   *     possible object is
+   *     {@link String }
+   *     
+   */
+  public String getNameComponent () {
+    return nameComponent;
+  }
+  
+  /**
+   * Define el valor de la propiedad nameComponent.
+   * 
+   * @param value
+   *     allowed object is
+   *     {@link String }
+   *     
+   */
+  public void setNameComponent ( String value ) {
+    this.nameComponent = value;
+  }
+  
+  /**
+   * Obtiene el valor de la propiedad idApplication.
+   * 
+   */
+  public int getIdApplication () {
+    return idApplication;
+  }
+  
+  /**
+   * Define el valor de la propiedad idApplication.
+   * 
+   */
+  public void setIdApplication ( int value ) {
+    this.idApplication = value;
+  }
+  
+  @Override
+  public String toString () {
+    return "FindParameterRequestDTO [nameComponent=" + nameComponent + ", idApplication=" + idApplication + ", user=" + user + ", password="
+           + password + "]";
+  }
+  
 }
