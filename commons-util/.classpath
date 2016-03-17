@@ -6,6 +6,6 @@
 	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="lib" path="lib/xstream-1.4.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/CETUS/Desarrollo/wildfly-10.0.0.Final/modules/system/layers/base/org/hibernate/main/hibernate-core-5.0.7.Final.jar"/>
+	<classpathentry kind="lib" path="D:/Cetus Technology/Desarrollo/wildfly-10.0.0.Final/modules/system/layers/base/org/hibernate/main/hibernate-core-5.0.7.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
