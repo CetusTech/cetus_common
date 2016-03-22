@@ -75,7 +75,7 @@ public class SendMail {
         
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Obtener la Sesion por defecto" );
         Session session = Session.getDefaultInstance( props, auth );
-        session.setDebug( true );
+        session.setDebug( false );
         
         ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Crear el objeto para el mensaje" );
         Message message = new MimeMessage( session );

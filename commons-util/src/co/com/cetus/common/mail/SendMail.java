@@ -9,6 +9,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+@Deprecated
 public class SendMail extends Thread {
   
   private String   SMTP_HOST;

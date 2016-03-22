@@ -6,6 +6,7 @@ import javax.mail.PasswordAuthentication;
  * 
  * @author Andres
  */
+@Deprecated
 class SMTPAuthentication extends javax.mail.Authenticator {
   private String userName;
   private String password;
