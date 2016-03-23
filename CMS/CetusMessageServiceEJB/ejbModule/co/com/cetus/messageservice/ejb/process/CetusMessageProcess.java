@@ -51,7 +51,7 @@ public class CetusMessageProcess {
     List< ParameterDTO > listParameter = null;
     try {
       ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "********* Inicia recarga el componente [" + reloadParameterDTO.getComponent() + "] *********" );
-      ConstantEJB.CETUS_MESSAGE_EJB_LOG.info( "Component =" + reloadParameterDTO.getComponent() + ", ListParameter ="
+      ConstantEJB.CETUS_MESSAGE_EJB_LOG.debug( "Component =" + reloadParameterDTO.getComponent() + ", ListParameter ="
                                               + reloadParameterDTO.getListParameter() );
                                               
       CetusMessageValidator.componentIsNullOrEmpty( reloadParameterDTO.getComponent() );
