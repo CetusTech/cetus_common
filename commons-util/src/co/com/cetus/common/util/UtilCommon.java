@@ -6,20 +6,22 @@ import java.util.Hashtable;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import co.com.cetus.common.dto.ResponseDTO;
-import co.com.cetus.common.dto.ResponseWSDTO;
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import co.com.cetus.common.dto.ResponseDTO;
+import co.com.cetus.common.dto.ResponseWSDTO;
 
 /**
  * The Class UtilCommon.
@@ -111,7 +113,7 @@ public class UtilCommon {
                        ConstantCommon.JAVA_NAMING_FACTORY_INITIAL );
       propiedades.put( "java.naming.factory.url.pkgs",
                        ConstantCommon.JAVA_NAMING_FACTORY_URL_PKGS );
-      
+                       
       if ( pHostRemote != null ) {
         propiedades.put( "java.naming.provider.url", pHostRemote );
       }
@@ -245,7 +247,7 @@ public class UtilCommon {
     lResponseWSDTO.setType( ConstantCommon.WSResponse.TYPE_WRONG_PARAMETERS );
     lResponseWSDTO
                   .setMessage( ConstantCommon.WSResponse.MESSAGE_WRONG_PARAMETERS );
-    
+                  
     return lResponseWSDTO;
   }
   
@@ -266,8 +268,7 @@ public class UtilCommon {
   
   public static XStream getInstance () {
     if ( xs == null ) {
-      synchronized ( XStream.class )
-      {
+      synchronized ( XStream.class ) {
         if ( xs == null ) {
           xs = new XStream( new DomDriver() );
         }
@@ -503,6 +504,39 @@ public class UtilCommon {
     }
     return xmlGregorianCalendar;
   }
-
   
+  /**
+   * </p> Gets the ip requester. </p>
+   *
+   * @author Jose David Salcedo M. - Cetus Technology
+   * @param facesContext the faces context
+   * @return el string
+   * @throws Exception the exception
+   * @since commons-util (28/03/2016)
+   */
+  public static String getIpRequester ( FacesContext facesContext ) throws Exception {
+    HttpServletRequest request = ( HttpServletRequest ) facesContext.getExternalContext().getRequest();
+    return getIpRequester( request );
+  }
+  
+  /**
+   * </p> Gets the ip requester. </p>
+   *
+   * @author Jose David Salcedo M. - Cetus Technology
+   * @param request the request
+   * @return el string
+   * @throws Exception the exception
+   * @since commons-util (28/03/2016)
+   */
+  public static String getIpRequester ( HttpServletRequest request ) throws Exception {
+    String ipRequester = null;
+    ipRequester = request.getHeader( "x-forwarded-for" );
+    if ( ipRequester == null ) {
+      ipRequester = request.getHeader( "X_FORWARDED_FOR" );
+      if ( ipRequester == null ) {
+        ipRequester = request.getRemoteAddr();
+      }
+    }
+    return ipRequester;
+  }
 }
