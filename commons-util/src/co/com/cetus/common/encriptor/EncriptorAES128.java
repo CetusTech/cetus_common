@@ -22,7 +22,7 @@ public class EncriptorAES128 extends Encriptor implements Serializable {
   
   private static final long   serialVersionUID = 1L;
                                                
-  private static final byte[] keyDefault       = new byte[]{ 'K', '3', 'y', 'D', '3', 'f', 'A', 'U', '1', 'T' };
+  private static final byte[] keyDefault       = new byte[]{ 'K', '3', 'y', 'D', '3', 'f', 'A', 'U', '1', 'T', 'C', 'E', 't', 'U', '5', 'T' };
                                                
   /** The Constant ALGORITHM. */
   private static final String ALGORITHM        = "AES";
@@ -91,8 +91,6 @@ public class EncriptorAES128 extends Encriptor implements Serializable {
     if ( keyValue == null || ( keyValue != null && keyValue.isEmpty() ) ) {
       keyValueByte = keyDefault;
     } else {
-      Encriptor encriptor = EncriptorFactory.createEncriptor( EncriptorType.MD5 );
-      keyValue = encriptor.getValueEncripted( keyValue, null );
       keyValueByte = keyValue.getBytes();
     }
     key = new SecretKeySpec( keyValueByte, ALGORITHM );

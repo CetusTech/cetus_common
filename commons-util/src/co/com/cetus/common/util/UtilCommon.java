@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
@@ -539,4 +540,24 @@ public class UtilCommon {
     }
     return ipRequester;
   }
+  
+  /**
+   * </p> Gets the random uuid. </p>
+   *
+   * @author Jose David Salcedo M. - Cetus Technology
+   * @param length the length
+   * @return el string
+   * @throws Exception the exception
+   * @since commons-util (30/03/2016)
+   */
+  public static String getRandomUUID(int length) throws Exception{
+    String valueRandom = null;
+    valueRandom = UUID.randomUUID().toString();
+    valueRandom = valueRandom.replace( "-", "" );
+    valueRandom = valueRandom.substring( 0, length );
+    valueRandom = valueRandom.toUpperCase();
+    return valueRandom;
+    
+  }
+  
 }

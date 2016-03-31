@@ -30,6 +30,8 @@ public interface ConstantCommon {
   String                     JAVA_NAMING_FACTORY_INITIAL  = "org.jboss.naming.remote.client.InitialContextFactory";
   String                     JAVA_NAMING_FACTORY_URL_PKGS = "org.jboss.naming:org.jnp.interfaces";
   
+  public String              PARAMETRES_SEPARATOR         = "|";
+  
   public interface WSResponse {
     String CODE_ONE                 = "01";
     String CODE_ZERO                = "00";
