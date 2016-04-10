@@ -18,6 +18,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -558,6 +559,33 @@ public class UtilCommon {
     valueRandom = valueRandom.toUpperCase();
     return valueRandom;
     
+  }
+
+  /**
+   * </p> To gson. </p>
+   *
+   * @author Jose David Salcedo M. - Cetus Technology
+   * @param o the o
+   * @return el string
+   * @since commons-util (7/04/2016)
+   */
+  public static String toGson(Object o) {
+    Gson gson = new Gson();
+    return gson.toJson(o);
+  }
+
+  /**
+   * </p> From gson. </p>
+   *
+   * @author Jose David Salcedo M. - Cetus Technology
+   * @param c the c
+   * @param s the s
+   * @return el object
+   * @since commons-util (7/04/2016)
+   */
+  public static Object fromGson(Class<?> c, String s) {
+    Gson gson = new Gson();
+    return gson.fromJson(s, c);
   }
   
 }
