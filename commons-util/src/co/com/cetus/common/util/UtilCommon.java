@@ -587,5 +587,24 @@ public class UtilCommon {
     Gson gson = new Gson();
     return gson.fromJson(s, c);
   }
+
+  /**
+   * </p> Checks if is null or empty string. </p>
+   *
+   * @author Jose David Salcedo M. - Cetus Technology
+   * @param str the str
+   * @return true, si el proceso fue exitoso
+   * @since commons-util (29/04/2016)
+   */
+  public static boolean isNullOrEmptyString(String str) {
+    if (str == null) {
+      return true;
+    }
+    if (str.isEmpty() || str.trim().length() == 0) {
+      return true;
+    }
+    return false;
+
+  }
   
 }
