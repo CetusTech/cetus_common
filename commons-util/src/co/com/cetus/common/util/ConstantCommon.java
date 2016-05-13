@@ -32,6 +32,9 @@ public interface ConstantCommon {
   
   public String              PARAMETRES_SEPARATOR         = "|";
   
+  public String              ACRONYM_GENERAL_SEARCH         = "SEARCH";
+
+  
   public interface WSResponse {
     String CODE_ONE                 = "01";
     String CODE_ZERO                = "00";
